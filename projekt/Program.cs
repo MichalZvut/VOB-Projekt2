@@ -7,20 +7,33 @@ class Program
 {
     static async Task Main()
     {
-        Console.WriteLine("Weather App");
-        Console.Write("Enter city: ");
+        try
+        {
+            Console.WriteLine("Weather App");
+            Console.Write("Enter city: ");
 
-        string city = Console.ReadLine();
+            string city = Console.ReadLine();
 
-        var provider = new OpenWeatherProvider();
-        var service = new WeatherService(provider);
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                Console.WriteLine("City cannot be empty.");
+                return;
+            }
 
-        var weather = await service.GetWeatherAsync(city);
+            var provider = new OpenWeatherProvider();
+            var service = new WeatherService(provider);
 
-        Console.WriteLine();
-        Console.WriteLine($"City: {weather.City}");
-        Console.WriteLine($"Temperature: {weather.Temperature} °C");
-        Console.WriteLine($"Humidity: {weather.Humidity}%");
-        Console.WriteLine($"Wind: {weather.WindSpeed} km/h");
+            var weather = await service.GetWeatherAsync(city);
+
+            Console.WriteLine();
+            Console.WriteLine($"City: {weather.City}");
+            Console.WriteLine($"Temperature: {weather.Temperature} °C");
+            Console.WriteLine($"Humidity: {weather.Humidity}%");
+            Console.WriteLine($"Wind: {weather.WindSpeed} km/h");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
     }
 }
