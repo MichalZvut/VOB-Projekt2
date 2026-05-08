@@ -6,39 +6,38 @@ namespace projekt.Providers;
 
 public class OpenWeatherProvider : IWeatherProvider
 {
-    private readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient = new();
 
     public OpenWeatherProvider()
     {
-        _httpClient = new HttpClient();
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "WeatherApp");
     }
 
     public async Task<WeatherData> GetWeatherAsync(string city)
     {
-        double latitude = 50.08;
-        double longitude = 14.43;
+        string encodedCity = Uri.EscapeDataString(city);
 
-        if (city.ToLower() == "brno")
-        {
-            latitude = 49.19;
-            longitude = 16.61;
-        }
-
-        string url =
-            $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,wind_speed_10m,relative_humidity_2m";
+        string url = $"https://wttr.in/{encodedCity}?format=j1";
 
         var response = await _httpClient.GetStringAsync(url);
 
         using JsonDocument doc = JsonDocument.Parse(response);
 
-        var current = doc.RootElement.GetProperty("current");
+        var current = doc.RootElement
+            .GetProperty("current_condition")[0];
 
         return new WeatherData
         {
             City = city,
-            Temperature = current.GetProperty("temperature_2m").GetDouble(),
-            Humidity = current.GetProperty("relative_humidity_2m").GetInt32(),
-            WindSpeed = current.GetProperty("wind_speed_10m").GetDouble()
+            Temperature = double.Parse(
+                current.GetProperty("temp_C").GetString()
+            ),
+            WindSpeed = double.Parse(
+                current.GetProperty("windspeedKmph").GetString()
+            ),
+            Humidity = int.Parse(
+                current.GetProperty("humidity").GetString()
+            )
         };
     }
 }

@@ -6,7 +6,7 @@ public class InputService
     {
         while (true)
         {
-            Console.Write("Enter city: ");
+            Console.Write("Enter city: "); // Brno, Prague, London, New York
             string city = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(city))

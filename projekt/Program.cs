@@ -41,11 +41,11 @@ class Program
                 {
                     List<WeatherData> list = new();
 
-                    Console.WriteLine("First city:");
+                    Console.WriteLine("First city");
                     string firstCity = inputService.GetCityName();
                     list.Add(await weatherService.GetWeatherAsync(firstCity));
 
-                    Console.WriteLine("Second city:");
+                    Console.WriteLine("Second city");
                     string secondCity = inputService.GetCityName();
                     list.Add(await weatherService.GetWeatherAsync(secondCity));
 
@@ -54,6 +54,7 @@ class Program
                         PrintWeather(item);
                     }
 
+                    Console.WriteLine();
                     Console.WriteLine($"Average temp: {statsService.GetAverageTemperature(list):0.0} °C");
                     Console.WriteLine($"Max temp: {statsService.GetMaxTemperature(list):0.0} °C");
                     Console.WriteLine($"Min temp: {statsService.GetMinTemperature(list):0.0} °C");
@@ -76,6 +77,7 @@ class Program
 
     static void PrintWeather(WeatherData weather)
     {
+        Console.WriteLine();
         Console.WriteLine($"City: {weather.City}");
         Console.WriteLine($"Temperature: {weather.Temperature} °C");
         Console.WriteLine($"Humidity: {weather.Humidity}%");
