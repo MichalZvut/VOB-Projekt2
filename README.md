@@ -1,13 +1,15 @@
-Program komunikuje s online službou wttr.in pomocí HTTP požadavků a získává aktuální data o počasí ve formátu JSON. Následně tato data zpracovává a zobrazuje uživateli v přehledné podobě.
+# Weather App
 
-Uživatel může:
+- Program komunikuje s online službou wttr.in pomocí HTTP požadavků a získává aktuální data o počasí ve formátu JSON. Následně tato data zpracovává a zobrazuje uživateli v přehledné podobě.
+
+## Uživatel může:
 
 - zobrazit aktuální počasí pro zadané město
 - porovnat počasí mezi dvěma městy
 - vypočítat průměrnou teplotu
 - zobrazit minimální a maximální teplotu
 
-Použité principy
+## Použité principy
 
 - V projektu byly použity principy objektově orientovaného programování:
 
@@ -16,11 +18,11 @@ Použité principy
 - použití rozhraní (interface)
 - zapouzdření odpovědností jednotlivých tříd
 
-Asynchronní zpracování
+## Asynchronní zpracování
 
-- Komunikace s API probíhá asynchronně pomocí async/await a HttpClient.
+- Komunikace s API probíhá asynchronně pomocí `async/await` a `HttpClient`.
 
-Struktura projektu
+## Struktura projektu
 
 - Models – datové modely
 - Interfaces – rozhraní providerů
